@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+echo "BUILD_DIR = " $BUILD_DIR
+echo "CACHE_DIR = " $CACHE_DIR
+echo "ENV_DIR = " $ENV_DIR
+
+JUMAN_URL="http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/juman/juman-7.01.tar.bz2"
+KNP_URL="wget http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/knp/knp-4.18.tar.bz2"
+
+echo "-----> Install juman"
+echo "JUMAN_URL = " $JUMAN_URL | indent
+
+tar jxvf juman-7.01.tar.bz2
+cd juman-7.01
+./configure
+make
+make install
+
+echo "juman version: "
+juman -v
+
+cd ..
+
+echo "-----> Install knp"
+echo "KNP_URL = " $KNP_URL | indent
+tar jxvf knp-4.18.tar.bz2
+cd knp-4.18
+./configure
+make
+make install
+
+echo "knp version: "
+knp -v
