@@ -13,6 +13,7 @@ echo "BUILD_DIR = " $BUILD_DIR
 echo "CACHE_DIR = " $CACHE_DIR
 echo "ENV_DIR = " $ENV_DIR
 echo "Current_DIR = " $(dirname $0)
+echo "$PWD = " $PWD
 
 mkdir -p "$BUILD_DIR/bin"
 echo "$BUILD_DIR/bin"
@@ -25,15 +26,22 @@ echo "-----> Install juman"
 echo "JUMAN_URL = " $JUMAN_URL | indent
 
 cd $CACHE_DIR
+ls -al
+echo "$PWD = " $PWD
 # if [[ -z "$(which curl)" ]]; then
 wget -q $JUMAN_URL
 # else
 # curl -sS
 echo "!!!!!!!!!! DONE wget juman"
 tar jxvf juman-7.01.tar.bz2
+ls -al
+echo "$PWD = " $PWD
 echo "!!!!!!!!!!! DONE tar juman"
-cd juman-7.01.tar.bz2
+
+cd ./juman-7.01.tar.bz2
 ./configure --prefix="$BUILD_DIR/bin"
+ls -al
+echo "$PWD = " $PWD
 echo "!!!!!!!!!!!!! DONE configure"
 make
 echo "!!!!!!!!!! DONE make"
