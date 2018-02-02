@@ -38,24 +38,30 @@ echo "-----> JUMAN version: "
 echo $(juman -v) | indent
 
 
-if [[ -z $(which knp) ]]; then
-    echo "-----> Install knp"
-    echo "KNP_URL =" $KNP_URL | indent
-    wget -P $CACHE_DIR -q $KNP_URL
-    tar jxvf $CACHE_DIR/knp-4.18.tar.bz2 -C $CACHE_DIR
+# if [[ -z $(which knp) ]]; then
+    # echo "-----> Install knp"
+    # echo "KNP_URL =" $KNP_URL | indent
+    # wget -P $CACHE_DIR -q $KNP_URL
+    # tar jxvf $CACHE_DIR/knp-4.18.tar.bz2 -C $CACHE_DIR
 
-    mkdir -p "$BUILD_DIR/bin/knp"
-    cd $CACHE_DIR/knp-4.18
-    ./configure --prefix="$BUILD_DIR/bin/knp" --with-juman-prefix="$BUILD_DIR/bin/juman"
-    make
-    make install
+    # mkdir -p "$BUILD_DIR/bin/knp"
+    # cd $CACHE_DIR/knp-4.18
+    # ./configure --prefix="$BUILD_DIR/bin/knp" --with-juman-prefix="$BUILD_DIR/bin/juman"
+    # make
+    # make install
 
-    echo 'export PATH="$PATH:$BUILD_DIR/bin/knp/bin"' >> $PROFILE_PATH
-    . $PROFILE_PATH
-else
-    echo "-----> Skip install KNP"
-fi
+    # echo 'export PATH="$PATH:$BUILD_DIR/bin/knp/bin"' >> $PROFILE_PATH
+    # . $PROFILE_PATH
+# else
+    # echo "-----> Skip install KNP"
+# fi
     
-echo "-----> KNP version: "
-echo $(knp -v) | indent
+# echo "-----> KNP version: "
+# echo $(knp -v) | indent
 
+
+ls -al $BUILD_DIR/bin
+# ls -al $BUILD_DIR/bin/knp
+
+du -a $BUILD_DIR
+du -a $BUILD_DIR/bin
