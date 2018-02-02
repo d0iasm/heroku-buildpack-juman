@@ -38,7 +38,7 @@ ls -al
 echo "$PWD = " $PWD
 echo "!!!!!!!!!!! DONE tar juman"
 
-cd ./juman-7.01.tar.bz2
+cd ./juman-7.01
 ./configure --prefix="$BUILD_DIR/bin"
 ls -al
 echo "$PWD = " $PWD
