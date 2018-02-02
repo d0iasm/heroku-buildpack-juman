@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# bin/compile <build-dir> <cache-dir>
+# bin/compile <build-dir> <cache-dir> <env-dir>
 
 indent() {
   sed -u 's/^/       /'
@@ -9,70 +9,47 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
-echo "BUILD_DIR = " $BUILD_DIR
-echo "CACHE_DIR = " $CACHE_DIR
-echo "ENV_DIR = " $ENV_DIR
-echo "Current_DIR = " $(dirname $0)
-echo "$PWD = " $PWD
-
-mkdir -p "$BUILD_DIR/bin"
-echo "$BUILD_DIR/bin"
-echo $BUILD_DIR/bin
-
 JUMAN_URL="http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/juman/juman-7.01.tar.bz2"
 KNP_URL="http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/knp/knp-4.18.tar.bz2"
 
 echo "-----> Install juman"
 echo "JUMAN_URL = " $JUMAN_URL | indent
 
-cd $CACHE_DIR
-ls -al
-echo "$PWD = " $PWD
-# if [[ -z "$(which curl)" ]]; then
-wget -q $JUMAN_URL
-# else
-# curl -sS
-echo "!!!!!!!!!! DONE wget juman"
-tar jxvf juman-7.01.tar.bz2
-ls -al
-echo "$PWD = " $PWD
-echo "!!!!!!!!!!! DONE tar juman"
+wget -P $CACHE_DIR -q $JUMAN_URL
+tar jxvf $CACHE_DIR/juman-7.01.tar.bz2 -C $CACHE_DIR
 
-mkdir -p "$BUILD_DIR/bin"
-cd ./juman-7.01
-./configure --prefix="$BUILD_DIR/bin"
-ls -al $BUILD_DIR
-ls -al $BUILD_DIR/bin
-echo "!!!!!!!!!!!!! DONE configure"
+mkdir -p "$BUILD_DIR/bin/juman"
+cd $CACHE_DIR/juman-7.01
+./configure --prefix="$BUILD_DIR/bin/juman"
 make
-echo "!!!!!!!!!! DONE make"
-ls -al $BUILD_DIR
-ls -al $BUILD_DIR/bin
 make install
-echo "!!!!!!!!!!! DONE make install"
-ls -al $BUILD_DIR
-ls -al $BUILD_DIR/bin
-ls -al $BUILD_DIR/.profile.d
 
 PROFILE_PATH="$BUILD_DIR/.profile.d/pyknp.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-echo 'export PATH="$PATH:$BUILD_DIR/bin/bin"' >> $PROFILE_PATH
+echo 'export PATH="$PATH:$BUILD_DIR/bin/juman/bin"' >> $PROFILE_PATH
 . $PROFILE_PATH
+ls -al $BUILD_DIR
+ls -al $BUILD_DIR/bin/juman
+ls -al $BUILD_DIR/.profile.d
 echo "$PATH"
 
-echo "juman version: "
-juman -v
+echo "-----> JUMAN version: "
+juman -v | indent
 
-# cd ..
 
-# echo "-----> Install knp"
-# echo "KNP_URL = " $KNP_URL | indent
-# wget $KNP_URL
-# tar jxvf knp-4.18.tar.bz2
-# cd knp-4.18
-# ./configure
-# make
-# make install
+echo "-----> Install knp"
+echo "KNP_URL = " $KNP_URL | indent
+wget -P $CACHE_DIR -q $KNP_URL
+tar jxvf $CACHE_DIR/knp-4.18.tar.bz2 -C $CACHE_DIR
 
-# echo "knp version: "
-# knp -v
+mkdir -p "$BUILD_DIR/bin/knp"
+cd $CACHE_DIR/knp-4.18
+./configure --prefix="$BUILD_DIR/bin/knp" --with-juman-prefix="$BUILD_DIR/bin/juman"
+make
+make install
+
+echo 'export PATH="$PATH:$BUILD_DIR/bin/knp/bin"' >> $PROFILE_PATH
+. $PROFILE_PATH
+
+echo "-----> KNP version: "
+knp -v | indent
