@@ -28,7 +28,7 @@ if [[ -z $(which juman) ]]; then
 
     PROFILE_PATH="$BUILD_DIR/.profile.d/pyknp.sh"
     mkdir -p $(dirname $PROFILE_PATH)
-    echo 'export PATH="$PATH:$BUILD_DIR/bin/juman/bin"' >> $PROFILE_PATH
+    echo 'export PATH="$PATH:/app/bin/juman/bin"' >> $PROFILE_PATH
     . $PROFILE_PATH
 else
     echo "-----> Skip install JUMAN"
@@ -46,11 +46,13 @@ if [[ -z $(which knp) ]]; then
 
     mkdir -p "$BUILD_DIR/bin/knp"
     cd $CACHE_DIR/knp-4.18
-    ./configure --prefix="$BUILD_DIR/bin/knp" --with-juman-prefix="$BUILD_DIR/bin/juman"
+    ./configure --prefix="/app/bin/knp" --with-juman-prefix="/app/bin/juman"
     make
     make install
 
-    echo 'export PATH="$PATH:$BUILD_DIR/bin/knp/bin"' >> $PROFILE_PATH
+    ls $BUILD_DIR/bin/knp/ | grep -v -E "$BUILD_DIR/bin/knp/bin/knp$" | xargs rm -rf
+
+    echo 'export PATH="$PATH:/app/bin/knp/bin"' >> $PROFILE_PATH
     . $PROFILE_PATH
 else
     echo "-----> Skip install KNP"
