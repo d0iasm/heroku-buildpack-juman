@@ -10,7 +10,8 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 JUMAN_URL="http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/juman/juman-7.01.tar.bz2"
-KNP_URL="http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/knp/knp-4.18.tar.bz2"
+# KNP_URL="http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/knp/knp-4.18.tar.bz2"
+KNP_URL="https://transfer.sh/UhW9d/knp-4.18.tar.bz2"
 
 if [[ -z $(which juman) ]]; then
     echo "-----> Install juman"
@@ -29,6 +30,8 @@ if [[ -z $(which juman) ]]; then
     mkdir -p $(dirname $PROFILE_PATH)
     echo 'export PATH="$PATH:$BUILD_DIR/bin/juman/bin"' >> $PROFILE_PATH
     . $PROFILE_PATH
+else
+    echo "-----> Skip install JUMAN"
 fi
 
 echo "-----> JUMAN version: "
@@ -49,6 +52,8 @@ if [[ -z $(which knp) ]]; then
 
     echo 'export PATH="$PATH:$BUILD_DIR/bin/knp/bin"' >> $PROFILE_PATH
     . $PROFILE_PATH
+else
+    echo "-----> Skip install KNP"
 fi
     
 echo "-----> KNP version: "
