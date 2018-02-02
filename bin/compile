@@ -55,7 +55,8 @@ ls -al $BUILD_DIR/bin
 
 PROFILE_PATH="$BUILD_DIR/.profile.d/pyknp.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-echo 'export PATH="$PATH:$BUILD_DIR/bin"' >> $PROFILE_PATH
+echo 'export PATH="$PATH:$BUILD_DIR/bin/bin"' >> $PROFILE_PATH
+echo "$PATH"
 
 echo "juman version: "
 juman -v
