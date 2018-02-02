@@ -10,4 +10,5 @@ $ git push heroku master
 ## Uninstall
 ```
 $ heroku buildpacks:remove https://github.com/d0iasm/heroku-buildpack-pyknp.git
+$ git push heroku master
 ```

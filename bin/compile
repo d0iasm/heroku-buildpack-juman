@@ -14,32 +14,49 @@ echo "CACHE_DIR = " $CACHE_DIR
 echo "ENV_DIR = " $ENV_DIR
 echo "Current_DIR = " $(dirname $0)
 
+mkdir -p "$BUILD_DIR/bin"
+echo "$BUILD_DIR/bin"
+echo $BUILD_DIR/bin
+
 JUMAN_URL="http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/juman/juman-7.01.tar.bz2"
-KNP_URL="wget http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/knp/knp-4.18.tar.bz2"
+KNP_URL="http://nlp.ist.i.kyoto-u.ac.jp/nl-resource/knp/knp-4.18.tar.bz2"
 
 echo "-----> Install juman"
 echo "JUMAN_URL = " $JUMAN_URL | indent
 
-wget $JUMAN_URL
+cd $CACHE_DIR
+# if [[ -z "$(which curl)" ]]; then
+wget -q $JUMAN_URL
+# else
+# curl -sS
+echo "!!!!!!!!!! DONE wget juman"
 tar jxvf juman-7.01.tar.bz2
-cd juman-7.01
-./configure --prefix=$BUILD_DIR/
+echo "!!!!!!!!!!! DONE tar juman"
+cd juman-7.01.tar.bz2
+./configure --prefix="$BUILD_DIR/bin"
+echo "!!!!!!!!!!!!! DONE configure"
 make
+echo "!!!!!!!!!! DONE make"
 make install
+echo "!!!!!!!!!!! DONE make install"
+
+PROFILE_PATH="$BUILD_DIR/.profile.d/pyknp.sh"
+mkdir -p $(dirname $PROFILE_PATH)
+echo 'export PATH="$PATH:$HOME/bin"' >> $PROFILE_PATH
 
 echo "juman version: "
 juman -v
 
-cd ..
+# cd ..
 
-echo "-----> Install knp"
-echo "KNP_URL = " $KNP_URL | indent
-wget $KNP_URL
-tar jxvf knp-4.18.tar.bz2
-cd knp-4.18
-./configure
-make
-make install
+# echo "-----> Install knp"
+# echo "KNP_URL = " $KNP_URL | indent
+# wget $KNP_URL
+# tar jxvf knp-4.18.tar.bz2
+# cd knp-4.18
+# ./configure
+# make
+# make install
 
-echo "knp version: "
-knp -v
+# echo "knp version: "
+# knp -v
