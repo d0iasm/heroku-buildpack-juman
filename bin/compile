@@ -52,10 +52,11 @@ make install
 echo "!!!!!!!!!!! DONE make install"
 ls -al $BUILD_DIR
 ls -al $BUILD_DIR/bin
+ls -al $BUILD_DIR/.profile.d
 
 PROFILE_PATH="$BUILD_DIR/.profile.d/pyknp.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-echo 'export PATH="$PATH:$BUILD_DIR/bin/bin"' >> $PROFILE_PAT
+echo 'export PATH="$PATH:$BUILD_DIR/bin/bin"' >> $PROFILE_PATH
 . $PROFILE_PATH
 echo "$PATH"
 
