@@ -38,10 +38,11 @@ ls -al
 echo "$PWD = " $PWD
 echo "!!!!!!!!!!! DONE tar juman"
 
+mkdir -p "$BUILD_DIR/bin"
 cd ./juman-7.01
 ./configure --prefix="$BUILD_DIR/bin"
-ls -al
-echo "$PWD = " $PWD
+ls -al $BUILD_DIR
+ls -al $BUILD_DIR/bin
 echo "!!!!!!!!!!!!! DONE configure"
 make
 echo "!!!!!!!!!! DONE make"
