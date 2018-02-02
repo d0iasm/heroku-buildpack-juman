@@ -46,8 +46,12 @@ ls -al $BUILD_DIR/bin
 echo "!!!!!!!!!!!!! DONE configure"
 make
 echo "!!!!!!!!!! DONE make"
+ls -al $BUILD_DIR
+ls -al $BUILD_DIR/bin
 make install
 echo "!!!!!!!!!!! DONE make install"
+ls -al $BUILD_DIR
+ls -al $BUILD_DIR/bin
 
 PROFILE_PATH="$BUILD_DIR/.profile.d/pyknp.sh"
 mkdir -p $(dirname $PROFILE_PATH)
