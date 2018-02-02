@@ -50,7 +50,7 @@ echo "!!!!!!!!!!! DONE make install"
 
 PROFILE_PATH="$BUILD_DIR/.profile.d/pyknp.sh"
 mkdir -p $(dirname $PROFILE_PATH)
-echo 'export PATH="$PATH:$HOME/bin"' >> $PROFILE_PATH
+echo 'export PATH="$PATH:$BUILD_DIR/bin"' >> $PROFILE_PATH
 
 echo "juman version: "
 juman -v
