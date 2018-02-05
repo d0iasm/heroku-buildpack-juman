@@ -4,7 +4,7 @@ This is a _Heroku Buildpack_ for running [JUMAN 7.01](http://nlp.ist.i.kyoto-u.a
 ## Usage
 
 ``` 
-$ heroku buildpacks:add https://github.com/d0iasm/heroku-buildpack-pyknp.git
+$ heroku buildpacks:add https://github.com/d0iasm/heroku-buildpack-juman.git
 $ git push heroku master
 ```
 
@@ -15,6 +15,6 @@ $ git push heroku master
 
 ## Uninstall
 ```
-$ heroku buildpacks:remove https://github.com/d0iasm/heroku-buildpack-pyknp.git
+$ heroku buildpacks:remove https://github.com/d0iasm/heroku-buildpack-juman.git
 $ git push heroku master
 ```
